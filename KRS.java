@@ -111,6 +111,33 @@ public class KRS {
         } while (true);
     }
 
+    public static void analisisKRS() {
+        if (KRS.isEmpty()) {
+            System.out.println("Belum ada data mahasiswa.");
+            return;
+        }
+
+        int mhsKurangSKS = 0;
+        boolean[] sudahDihitung = new boolean[KRS.size()];
+
+        for (int i = 0; i < KRS.size(); i++) {
+            String[] data = KRS.get(i);
+            if (!sudahDihitung[i]) {
+                if (Integer.parseInt(data[4]) < 20) {
+                    mhsKurangSKS++;
+                }
+                for (int j = i + 1; j < KRS.size(); j++) {
+                    if (data[0].equals(KRS.get(j)[0])) {
+                        sudahDihitung[j] = true;
+                    }
+                }
+            }
+        }
+
+        System.out.println("\n--- Analisis Data KRS ---");
+        System.out.println("Jumlah mahasiswa yang mengambil SKS kurang dari 20: " + mhsKurangSKS);
+    }
+
     public static void main(String[] args) {
         do {
             System.out.println("\n=== Sistem Pemantauan KRS Mahasiswa ===");
@@ -131,7 +158,7 @@ public class KRS {
                     tampilkanKRS();
                     break;
                 case 3:
-                    System.out.println("Fungsi Analisis Data KRS");
+                    analisisKRS();
                     break;
                 case 4:
                     System.out.println("Terima kasih!");
