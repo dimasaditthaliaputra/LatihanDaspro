@@ -74,6 +74,43 @@ public class KRS {
         }
     }
 
+    public static void tampilkanKRS() {
+        if (KRS.isEmpty()) {
+            System.out.println("Data Tidak Tersedia");
+            return;
+        }
+
+        System.out.println("\n--- Tampilkan Daftar KRS Mahasiswa ---");
+        do {
+            System.out.print("Masukkan NIM mahasiswa: ");
+            String nim = input.nextLine();
+
+            boolean ditemukan = false;
+            int totalSKS = 0;
+            System.out.println("\nDaftar KRS: ");
+            System.out.println("------------------------------------------------------------------------");
+            System.out.printf("%-15s %-15s %-15s %-15s %-10s\n",
+                    "NIM", "Nama", "Kode Mk", "Nama Matkul", "SKS");
+            System.out.println("------------------------------------------------------------------------");
+
+            for (String[] data : KRS) {
+                if (data[0].equals(nim)) {
+                    ditemukan = true;
+                    System.out.printf("%-15s %-15s %-15s %-15s %-10s\n",
+                            data[0], data[1], data[2], data[3], data[4]);
+                    totalSKS += Integer.parseInt(data[4]);
+                }
+            }
+
+            if (ditemukan) {
+                System.out.println("\nTotal SKS: " + totalSKS);
+                break;
+            } else {
+                System.out.println("Tidak ada data untuk NIM " + nim);
+            }
+        } while (true);
+    }
+
     public static void main(String[] args) {
         do {
             System.out.println("\n=== Sistem Pemantauan KRS Mahasiswa ===");
@@ -91,7 +128,7 @@ public class KRS {
                     tambahKRS();
                     break;
                 case 2:
-                    System.out.println("Fungsi Tampilkan Data KRS");
+                    tampilkanKRS();
                     break;
                 case 3:
                     System.out.println("Fungsi Analisis Data KRS");
