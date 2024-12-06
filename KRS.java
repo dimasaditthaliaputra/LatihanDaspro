@@ -119,17 +119,21 @@ public class KRS {
 
         int mhsKurangSKS = 0;
         boolean[] sudahDihitung = new boolean[KRS.size()];
-
+        
         for (int i = 0; i < KRS.size(); i++) {
-            String[] data = KRS.get(i);
             if (!sudahDihitung[i]) {
-                if (Integer.parseInt(data[4]) < 20) {
-                    mhsKurangSKS++;
-                }
-                for (int j = i + 1; j < KRS.size(); j++) {
-                    if (data[0].equals(KRS.get(j)[0])) {
+                String nim = KRS.get(i)[0];
+                int totalSKS = 0;
+        
+                for (int j = 0; j < KRS.size(); j++) {
+                    if (KRS.get(j)[0].equals(nim)) {
                         sudahDihitung[j] = true;
+                        totalSKS += Integer.parseInt(KRS.get(j)[4]);
                     }
+                }
+        
+                if (totalSKS < 20) {
+                    mhsKurangSKS++;
                 }
             }
         }
